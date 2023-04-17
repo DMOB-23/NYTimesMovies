@@ -6,7 +6,12 @@ const httpClient = axios.create({
 })
 
 httpClient.interceptors.request.use(config => {
-    config.headers.Authorization = `Bearer ${ApiConfig.MOVIES_API_KEY}`
+    if (!config.params) {
+        config.params = {}
+    }
+
+    config.params['api-key'] = ApiConfig.MOVIES_API_KEY
+    
     return config
 })
 
